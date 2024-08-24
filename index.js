@@ -7,7 +7,7 @@ const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/mern_image_upload';
+const MONGO_URI =  'mongodb+srv://teklit:teklit@cluster0.9iy5i66.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
 // Middleware
 app.use(cors());
@@ -19,9 +19,12 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 // MongoDB Connection
 mongoose.connect(MONGO_URI, {
-    useNewUrlParser: true,
+    
     useUnifiedTopology: true
-});
+
+})
+.then(()=>console.log("db connected"))
+.catch(()=> console.log("db failed"))
 
 // Image Model
 const Image = mongoose.model('Image', new mongoose.Schema({
